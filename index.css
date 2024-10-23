@@ -1,9 +1,9 @@
 @font-face {
   font-family: abak;
-  src: url(./fronts/IRANSansWeb.eot);
-  src: url(./fronts/IRANSansWeb.ttf);
-  src: url(./fronts/IRANSansWeb.woff);
-  src: url(./fronts/IRANSansWeb.woff2);
+  src: url(/fronts/IRANSansWeb.eot);
+  src: url(/fronts/IRANSansWeb.ttf);
+  src: url(/fronts/IRANSansWeb.woff);
+  src: url(/fronts/IRANSansWeb.woff2);
 }
 * {
   font-family: abak;
