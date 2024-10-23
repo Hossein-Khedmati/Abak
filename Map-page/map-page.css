@@ -1,7 +1,9 @@
 @font-face {
   font-family: abak;
-  src: url(../fronts/fonts.ttf);
-  src: url(../fronts/fonts.woff);
+  src: url(../fronts/IRANSansWeb.eot);
+  src: url(../fronts/IRANSansWeb.ttf);
+  src: url(../fronts/IRANSansWeb.woff);
+  src: url(../fronts/IRANSansWeb.woff2);
 }
 * {
   box-sizing: border-box;
