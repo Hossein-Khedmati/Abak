@@ -1,0 +1,382 @@
+@font-face {
+  font-family: abak;
+  src: url(../fronts/fonts.ttf);
+  src: url(../fronts/fonts.woff);
+}
+* {
+  box-sizing: border-box;
+  direction: rtl;
+  font-family: abak;
+}
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 30px;
+  background-color: #e3ede1;
+}
+
+.container {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  height: calc(100vh - 60px);
+  width: 100%;
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 20px 20px 20px 0;
+}
+.sidebar {
+  width: 85px;
+  height: calc(100% - 100px);
+  border-radius: 50px;
+  background-color: #000;
+  padding: 20px;
+  position: absolute;
+  z-index: 1;
+}
+.sidebar-show {
+  width: 300px;
+}
+.sidebar > div {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  cursor: pointer;
+  transition: 200ms;
+}
+.sidebar > div:nth-child(1) {
+  height: 80px;
+}
+.abak-logo {
+  width: 32px;
+  height: 64px;
+  margin-right: 5px;
+}
+.polygon-logo,
+.soilmap-logo,
+.soildata-logo,
+.download-logo {
+  width: 44px;
+  height: 40px;
+}
+.polygon-logo > img,
+.soilmap-logo > img,
+.soildata-logo > img,
+.download-logo > img {
+  width: 44px;
+  height: 40px;
+}
+p.sidebar-texts {
+  margin-right: 20px;
+  color: rgb(255, 255, 255);
+  display: none;
+}
+.sidebar-texts-show {
+  display: block !important;
+}
+/* ************hover elements******** */
+div.hover-name {
+  color: #fff;
+  width: 200px;
+  height: 50px;
+  background-color: #000;
+  border-radius: 15px;
+  position: absolute;
+  right: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden; /* به جای display: none */
+  opacity: 0; /* آغاز با شفافیت صفر */
+  transition: opacity 200ms ease, visibility 200ms ease; /* استفاده از transition برای هماهنگی انیمیشن */
+}
+.logo-name {
+  width: 250px !important;
+}
+.abak-logo:hover ~ .logo-name {
+  visibility: visible; /* نمایش المان */
+  opacity: 1; /* شفافیت کامل */
+}
+.polygon-logo:hover ~ .polygon-name {
+  visibility: visible; /* نمایش المان */
+  opacity: 1; /* شفافیت کامل */
+}
+.soilmap-logo:hover ~ .map-name {
+  visibility: visible; /* نمایش المان */
+  opacity: 1; /* شفافیت کامل */
+}
+.soildata-logo:hover ~ .search-name {
+  visibility: visible; /* نمایش المان */
+  opacity: 1; /* شفافیت کامل */
+}
+
+.download-logo:hover ~ .download-name {
+  visibility: visible; /* نمایش المان */
+  opacity: 1; /* شفافیت کامل */
+}
+/* CSS جدید برای جلوگیری از هاور */
+.no-hover .hover-name {
+  visibility: hidden; /* پنهان کردن هاورها */
+  opacity: 0; /* شفافیت صفر */
+}
+
+/* ***********end hover elements************** */
+.close {
+  width: calc(100% - 40px) !important;
+  height: 50px !important;
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.close-end {
+  justify-content: flex-end;
+}
+.close-rotate {
+  transform: rotate(180deg);
+}
+/* ***********Map styles************ */
+div.map {
+  height: 100%;
+  width: calc(100% - 170px);
+  position: relative;
+  z-index: 0;
+  left: -130px;
+  border-radius: 10px;
+  display: flex;
+  flex-flow: row wrap;
+}
+div.map-header {
+  width: 100%;
+  height: 75px;
+  background-color: #0e160c;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px 15px 20px;
+  border-radius: 10px 10px 0 0;
+  color: #fff;
+}
+div.name-map {
+  font-size: 25px;
+  font-weight: 900;
+}
+div.tools {
+  width: 270px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+div.tools > div {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+div.tools > div > img {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+div.map-view {
+  width: 100%;
+  height: calc(100% - 75px);
+  overflow: hidden;
+  border-radius: 0 0 10px 10px;
+}
+div.map-view > img {
+  width: inherit;
+  height: 100%;
+  object-fit: cover;
+}
+div.searchbox {
+  font-size: 18px;
+}
+div.searchbox > input {
+  width: 340px;
+  height: 45px;
+  border-radius: 10px;
+  padding: 0 10px;
+  margin-right: 20px;
+  border: none;
+}
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
+button.search-map{
+  width: 60px;
+  height: 35px;
+  border-radius: 10px;
+  background-color: #476f3d;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: 200ms;
+}
+button.search-map:hover{
+  opacity: 0.8;
+}
+div.line1 {
+  width: 100%;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+}
+div.lines {
+  width: 100%;
+  height: 1.5px;
+  background-color: #ffffff;
+  opacity: 0.5;
+}
+/* **************submenu styles**************** */
+div.abak-sidebartext{
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+a.mainpage{
+  text-decoration: none;
+}
+a.mainpage:visited{
+  color: #fff;
+}
+div.polygon-sidebartext{
+  width: calc(100% - 44px);
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+.polygon-sub {
+  display: none; /* پنهان به طور پیش‌فرض */
+  width: 86.5%;
+  height: 50vh;
+  background-color: #000000E5;
+  color: #fff;
+  position: absolute;
+  top: 174px;
+  flex-flow: column;
+  z-index: 10;
+  cursor: default;
+}
+
+.polygon-sub.active {
+  display: flex; /* وقتی کلاس active اضافه می‌شود نمایش داده شود */
+}
+
+div.addres {
+  width: 100%;
+  height: 60px; 
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  cursor: pointer;
+}
+div.coordinate , div.draw-polygon{
+  width: 100%;
+  height: 60px;
+  border-top: 2px solid #ffffff69 ;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  cursor:pointer
+}
+.addres-input {
+  display: none; /* پنهان به طور پیش‌فرض */
+  width: 100%;
+  height: 175px;
+  padding: 0 20px;
+  position: relative;
+}
+
+.addres-input.active {
+  display: block; /* زمانی که کلاس active اضافه می‌شود، نمایش داده شود */
+}
+.addres-input input[type=text]{
+  width: 200px;
+  height: 100px;
+  border-radius: 20px;
+  background-color: #f8f8f8;
+  position: absolute;
+  left: calc(50% - 100px);
+}
+.addres-input input[type=submit]{
+  width: 50px;
+  height: 22px;
+  border-radius: 10px;
+  background-color: #0A9452;
+  border: none;
+  font-size: 10px;
+  line-height: 22px;
+  color: #fff;
+  position: absolute;
+  bottom: 10px;
+  left: 30px
+}
+div.coordinate-input{
+  display: none; /* پنهان به طور پیش‌فرض */
+  width: 100%;
+  height: 110px;
+  padding: 30px 10px;
+  position: relative;
+}
+.coordinate-input.active {
+  display: block; /* زمانی که کلاس active اضافه می‌شود، نمایش داده شود */
+}
+.coordinate-input input[type=button]{
+  width: 200px;
+  height: 25px;
+  border-radius: 10px;
+  border: none;
+  font-size: 12px;
+  background-color: #0033B8;
+  color: #fff;
+  position: absolute;
+  left: calc(50% - 100px);
+  top: 10px;
+}
+.coordinate-input input[type=text]{
+  width: 200px;
+  height: 25px;
+  border-radius: 10px;
+  border: none;
+  font-size: 12px;
+  background-color: #F8F8F8;
+  color: #000;
+  position: absolute;
+  left: calc(50% - 100px);
+  top: 45px;
+  padding: 0 10px;
+}
+.coordinate-input input[type=submit]{
+  width: 50px;
+  height: 22px;
+  border-radius: 10px;
+  background-color: #0A9452;
+  border: none;
+  font-size: 10px;
+  line-height: 22px;
+  color: #fff;
+  position: absolute;
+  bottom: 10px;
+  left: 30px
+}
+.down-icon {
+  transition: transform 0.3s ease; /* افزودن انیمیشن برای چرخش نرم */
+}
+
+.rotate {
+  transform: rotate(180deg); /* چرخش 180 درجه */
+}
+
+
+
+
+

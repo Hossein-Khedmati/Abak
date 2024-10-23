@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Map Page</title>
+    <link rel="stylesheet" href="map-page.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-draw@1.0.4/dist/leaflet.draw.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- ------------start sidebar---------- -->
+      <div class="sidebar">
+        <div>
+          <div class="abak-logo logos">
+            <img src="./images/Abak-logo.png" alt="Abak" />
+          </div>
+          <a href="../Home/index.html" class="mainpage"><div class="abak-sidebartext"><p class="sidebar-texts">وب نرم افزار مدیریت خاک آباک</p></div></a>
+          <div class="hover-name logo-name">وب نرم افزار مدیریت خاک آباک</div>
+        </div>
+        <div class="line1"></div>
+        <div class="polygon-menu">
+          <div class="polygon-logo logos">
+            <img src="./images/AOI.png" alt="AOI" />
+          </div>
+          <div class="polygon-sidebartext"><p class="sidebar-texts">انتخاب محدوده مورد نظر</p></div>
+          <div class="hover-name polygon-name">انتخاب محدوده مورد نظر</div>
+          <div class="polygon-sub">
+            <div class="addres">آدرس<img src="./images/down-icon.png" alt="down" class="down-icon"></div>
+            <div class="addres-input">
+              <form action="" method="get" id="address">
+                <input type="text" name="address">
+                <input type="submit" value="برو">
+              </form>
+            </div>
+            <div class="coordinate">مختصات جغرافیایی<img src="./images/down-icon.png" alt="down" class="down-icon"></div>
+            <div class="coordinate-input">
+              <form action="" method="get" id="coordinates">
+                <input type="button" value="نمایش موقعیت مکانی">
+                <input type="text" name="coordinate" placeholder="مختصات را وارد کنید">
+                <input type="submit" value="برو">
+              </form>
+              
+            </div>
+            <div class="draw-polygon">رسم پلی گون</div>
+          </div>
+        </div>
+        <div class="lines"></div>
+        <div>
+          <div class="soilmap-logo logos">
+            <img src="./images/soilmap.png" alt="soilmap" />
+          </div>
+          <p class="sidebar-texts">نقشه ی خاک</p>
+          <div class="hover-name map-name">نقشه ی خاک</div>
+        </div>
+        <div class="lines"></div>
+        <div>
+          <div class="soildata-logo logos">
+            <img src="./images/soildata-explorer.png" alt="soildata" />
+          </div>
+          <p class="sidebar-texts">جستجوگر اطلاعات خاک</p>
+          <div class="hover-name search-name">جستجوگر اطلاعات خاک</div>
+        </div>
+        <div class="lines"></div>
+        <div>
+          <div class="download-logo logos">
+            <img src="./images/download.png" alt="download" />
+          </div>
+          <p class="sidebar-texts">بارگیری اطلاعات خاک</p>
+          <div class="hover-name download-name">بارگیری اطلاعات خاک</div>
+        </div>
+        <div class="close">
+          <img
+            src="./images/close-menu.png"
+            alt="closse-btn"
+            class="close-btn"
+          />
+        </div>
+      </div>
+      <!----------------- end sidebar ------------------------ -->
+      <!---------------------- start map ----------------- -->
+      <div class="map" >
+        <div class="map-header">
+          <div class="name-map"><span>نقشه تعاملی آباک</span></div>
+          <div class="searchbox">
+            <span>منطقه:</span>
+            <input type="search" name="search" id="city-search" placeholder="شهر مورد نظر را وارد کنید..." onkeydown="handleKeyPress(event)"/>
+            <button onclick="searchCity()" class="search-map">جستجو</button>
+          </div>
+          <div class="tools">
+            <div class="polygon-map"><img src="./images/Area-2.png" alt="area2" /></div>
+            <div class="edit-button"><img src="./images/edit.jpg" alt="area1" /></div>
+            <div class="delete-edit"><img src="./images/delete.jpg" alt="hand" /></div>
+            <div class="zoom-in"><img src="./images/zoom-in.png" alt="zoom-in" /></div>
+            <div class="zoom-out"><img src="./images/zoom-out.png" alt="zoom-out" /></div>
+          </div>
+        </div>
+        <div class="map-view" id="map">
+          <!-- <img src="./images/Basemap-image.png" alt="base-map" /> -->
+        </div>
+      </div>
+      <!-------------------------- end map ------------------- -->
+    </div>
+    <script src="./map-page.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+
+    <script>
+        // Initialize the map and set its view to a default location (Center of Iran)
+        var map = L.map('map').setView([32.0, 54.0], 6);
+
+        // Load and display tile layer on the map
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        // Geolocation to show the user's live location when map is loaded
+        map.locate({ setView: true, maxZoom: 12 });
+
+        // When the user's location is found
+        map.on('locationfound', function(e) {
+            var radius = e.accuracy / 2;
+
+            // Add a marker for the user's location
+            L.marker(e.latlng).addTo(map)
+                .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+            // Add a circle to show accuracy radius
+            L.circle(e.latlng, radius).addTo(map);
+        });
+
+        // If location is not found or permission is denied
+        map.on('locationerror', function() {
+            alert("Unable to retrieve your location");
+        });
+
+        // Load the JSON data with city coordinates
+        var cities = [];
+        var currentMarker = null; // Variable to hold the current marker
+
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                cities = data;
+            });
+
+        // Function to search for a city and center the map on its location
+        function searchCity() {
+            var searchValue = document.getElementById('city-search').value.toLowerCase();
+            var foundCity = cities.find(city => city.title.toLowerCase() === searchValue || city.slug.toLowerCase() === searchValue);
+
+            if (foundCity) {
+                // Remove the current marker if it exists
+                if (currentMarker) {
+                    map.removeLayer(currentMarker);
+                }
+
+                // Add a marker for the found city
+                currentMarker = L.marker([foundCity.latitude, foundCity.longitude]).addTo(map)
+                    .bindPopup(foundCity.title)
+                    .openPopup();
+
+                // Center the map on the found city
+                map.setView([foundCity.latitude, foundCity.longitude], 12);
+            } else {
+                alert('City not found!');
+            }
+        }
+
+        // Initialize the draw control with polygon and delete functionality
+        var drawnItems = new L.FeatureGroup(); // Layer to store drawn items
+        map.addLayer(drawnItems); // Add the layer to the map
+
+        var drawControl = new L.Control.Draw({
+            draw: {
+                polygon: true,  // Enable drawing polygons
+                polyline: false, // Disable polylines
+                circle: false,   // Disable circles
+                rectangle: false, // Disable rectangles
+                marker: false   // Disable markers
+            },
+            edit: {
+                featureGroup: drawnItems, // Layer containing items to edit
+                remove: true // Enable removing drawn shapes
+            }
+        });
+        map.addControl(drawControl);
+
+        // Handle the created polygon event
+        map.on('draw:created', function (e) {
+            var type = e.layerType, layer = e.layer;
+
+            if (type === 'polygon') {
+                // Add the polygon to the map
+                drawnItems.addLayer(layer);
+                layer.bindPopup("Polygon created!").openPopup();
+            }
+        });
+
+        // Handle the deletion of shapes
+        map.on('draw:deleted', function (e) {
+            var layers = e.layers;
+            layers.eachLayer(function(layer) {
+                drawnItems.removeLayer(layer);
+            });
+        });
+
+    </script>
+  </body>
+</html>
+
+

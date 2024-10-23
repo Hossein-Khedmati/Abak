@@ -1,0 +1,136 @@
+@font-face {
+  font-family: abak;
+  src: url(../fronts/fonts.ttf);
+  src: url(../fronts/fonts.woff);
+}
+* {
+  font-family: abak;
+  box-sizing: border-box;
+  direction: rtl;
+}
+a{
+  text-decoration: none;
+}
+a:visited{
+  text-decoration: none;
+  color: #fff;
+}
+body{
+    background-color: #E6F0E4;
+}
+.header {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100px;
+  box-sizing: border-box;
+  padding: 0 20px;
+  margin: 25px 0;
+}
+div.menu-items {
+  width: 550px;
+  height: 100%;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: space-between;
+}
+div.button {
+  width: 215px;
+  height: 60px;
+  background-color: #0a9452;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  border-radius: 20px;
+  color: #fff;
+  font-family: abak;
+  box-shadow: 0px 2px 6px 2px #00000026;
+  box-shadow: 0px 1px 2px 0px #0000004d;
+}
+div.logo-png {
+  width: 60px;
+  height: 100%;
+  overflow: hidden;
+}
+.logo-png > img {
+  width: inherit;
+  height: inherit;
+  object-fit: contain;
+}
+div.menu-bar {
+  width: 450px;
+  height: 100%;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: space-between;
+}
+ul.menu {
+  width: 100%;
+  height: 100%;
+  list-style: none;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: 900;
+}
+ul.menu > li {
+  cursor: pointer;
+}
+/*********** main ********* */
+main{
+    padding: 0 35px;
+}
+.title{
+    display: block;
+    margin: 40px 0;
+    font-size: 60px;
+    font-weight: 900;
+    text-align: center;
+}
+img.about{
+    width: 100%;
+    height: 370px;
+    margin-bottom: 40px;
+}
+div.articles{
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.text1 , .text2{
+    width: 45%;
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 48px;
+}
+div.shape{
+    width: 100%;
+    height: 260px;
+    margin-bottom: 80px;
+}
+img.shape{
+    width: 560px;
+    height: 260px;
+    position: absolute;
+    right: calc(50% - 560px/2);
+}
+div.text3{
+    width: 100%;
+    height: 400px;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 50px;
+    text-align: center;
+}
